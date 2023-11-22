@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "SpotiPlay",
+  "description": "SpotiPlay: Seamlessly access and control Spotify within your Chrome browser through this Chrome extension.",
+  "version": "1.0.0",
+  "action": {
+    "default_popup": "index.html"
+  },
+  "permissions": ["storage"]
+}
