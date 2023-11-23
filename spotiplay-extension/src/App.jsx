@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+
+import Button from "./components/Button";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="split_div" id="song_div">
+        <img className="icon" src={reactLogo}></img>
+        <div id="song_info">
+          <span id="song_info_title">Track Title</span>
+          <span id="song_info_artist">Track Author</span>
+        </div>
+        <span id="song_heart">
+          <span className="material-symbols-outlined hearted" id="favourite">
+            favorite
+          </span>
+        </span>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+      <div className="split_div">
+        <div id="song_control">
+          <Button />
+          <Button />
+          <Button />
+          <Button />
+          <Button />
+        </div>
+        <div id="song_progress">
+          <input type="range"></input>
+        </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
