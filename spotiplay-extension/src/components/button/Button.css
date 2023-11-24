@@ -1,0 +1,46 @@
+button {
+    border: none;
+    outline: none;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.main_button {
+    width: 30px;
+    height: 30px;
+}
+
+.main_button_icon {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    background: var(--text);
+    border-radius: 50%;
+}
+
+.main_button_icon:hover {
+    transform: scale(1.15);
+}
+
+.side_button {
+    color: var(--subtext);
+}
+
+.side_button:hover {
+    color: var(--background-el);
+}

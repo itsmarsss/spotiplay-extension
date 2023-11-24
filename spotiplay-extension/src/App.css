@@ -9,8 +9,12 @@ body {
   display: flex;
 }
 
-.split_div {
-  width: 50%;
+.split_div:first-child {
+  width: 270px;
+}
+
+.split_div:last-child {
+  width: 215px;
 }
 
 #song_div {
@@ -21,6 +25,13 @@ body {
 #control_div {
   display: flex;
   flex-direction: column;
+  gap: 15px;
+}
+
+.icon {
+  height: 100%;
+  aspect-ratio: 1/1;
+  transform: scale(1.25);
 }
 
 #song_info {
@@ -36,20 +47,22 @@ body {
   color: var(--text);
 }
 
+#song_info_title:hover {
+  text-decoration: underline;
+}
+
 #song_info_artist {
   color: var(--subtext);
+}
+
+#song_info_artist:hover {
+  text-decoration: underline;
 }
 
 #song_heart {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.icon {
-  height: 100%;
-  aspect-ratio: 1/1;
-  transform: scale(1.5);
 }
 
 #favourite {
@@ -69,4 +82,17 @@ body {
     'GRAD' 0,
     'opsz' 24;
   color: var(--accent);
+}
+
+#song_control {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#song_progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
