@@ -7,6 +7,12 @@ body {
   margin: 0;
   padding: 25px;
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.top {
+  display: flex;
 }
 
 .split_div:first-child {
