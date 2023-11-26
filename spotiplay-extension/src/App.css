@@ -89,16 +89,3 @@ body {
     'opsz' 24;
   color: var(--accent);
 }
-
-#song_control {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-#song_progress {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}

@@ -3,8 +3,9 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-import Button from "./components/button/Button";
-import SliderBar from "./components/volumebar/SliderBar";
+import Controls from "./components/controls/Controls";
+import TrackBar from "./components/trackbar/TrackBar";
+import Volume from "./components/volume/Volume";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,57 +27,11 @@ function App() {
         </div>
 
         <div class="split_div" id="control_div">
-          <div id="song_control">
-            <Button
-              icon={
-                <span class="material-symbols-outlined side_button">
-                  shuffle
-                </span>
-              }
-            />
-            <Button
-              icon={
-                <span class="material-symbols-outlined side_button">
-                  skip_previous
-                </span>
-              }
-            />
-            <Button
-              class="main_button"
-              icon={
-                <span class="material-symbols-outlined main_button_icon">
-                  play_arrow
-                </span>
-              }
-            />
-            <Button
-              icon={
-                <span class="material-symbols-outlined side_button">
-                  skip_next
-                </span>
-              }
-            />
-            <Button
-              icon={
-                <span class="material-symbols-outlined side_button">
-                  repeat
-                </span>
-              }
-            />
-          </div>
-          <div id="song_progress">
-            <Button
-              icon={
-                <span class="material-symbols-outlined side_button">
-                  volume_up
-                </span>
-              }
-            />
-            <SliderBar slider_width={"150px"} />
-          </div>
+          <Controls />
+          <Volume />
         </div>
       </div>
-      <SliderBar slider_width={"calc(100% - 50px)"} />
+      <TrackBar />
     </>
   );
 }
