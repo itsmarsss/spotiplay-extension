@@ -12,58 +12,43 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     }
     const search_area = document.querySelector('[data-testid="now-playing-bar"]');
     if (message.action === 'playpause') {
-        try {
-            let playpause = search_area.querySelector('[aria-label="Play"]');
+        const playpause = search_area.querySelector('[aria-label="Play"]');
+        if (playpause) {
             playpause.click();
-            return;
-        } catch (err) {
-
-        } finally {
-            let playpause2 = search_area.querySelector('[aria-label="Pause"]');
+        } else {
+            const playpause2 = search_area.querySelector('[aria-label="Pause"]');
             playpause2.click();
         }
     }
     if (message.action === 'shuffle') {
-        try {
-            const shuffle = search_area.querySelector('[aria-label="Disable shuffle"]');
+        const shuffle = search_area.querySelector('[aria-label="Disable shuffle"]');
+        if (shuffle) {
             shuffle.click();
-            return;
-        } catch (err) {
-
-        } finally {
+        } else {
             const shuffle2 = search_area.querySelector('[aria-label="Enable shuffle"]');
             shuffle2.click();
         }
     }
     if (message.action === 'repeat') {
-        try {
-            const repeat = search_area.querySelector('[aria-label="Enable repeat"]');
+        const repeat = search_area.querySelector('[aria-label="Enable repeat"]');
+        if (repeat) {
             repeat.click();
-            return;
-        } catch (err) {
-
-        } finally {
-            try {
-                const repeat2 = search_area.querySelector('[aria-label="Enable repeat one"]');
+        } else {
+            const repeat2 = search_area.querySelector('[aria-label="Enable repeat one"]');
+            if (repeat2) {
                 repeat2.click();
-                return;
-            } catch (err) {
-
-            } finally {
+            } else {
                 const repeat3 = search_area.querySelector('[aria-label="Disable repeat"]');
                 repeat3.click();
             }
         }
     }
     if (message.action === 'mute') {
-        try {
-            let mute = search_area.querySelector('[aria-label="Mute"]');
+        const mute = search_area.querySelector('[aria-label="Mute"]');
+        if (mute) {
             mute.click();
-            return;
-        } catch (err) {
-
-        } finally {
-            let mute2 = search_area.querySelector('[aria-label="Unmute"]');
+        } else {
+            const mute2 = search_area.querySelector('[aria-label="Unmute"]');
             mute2.click();
         }
     }
@@ -120,25 +105,24 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
         currVolume = message.value;
     }
     if (message.action === 'heart') {
-        try {
-            let heart = search_area.querySelector('[aria-label="Save to Your Library"]');
-            heart.click();
-            return;
-        } catch (err) {
+        const heart = search_area.querySelector('[aria-label="Save to Your Library"]');
+        if (heart) {
 
-        } finally {
-            let heart2 = search_area.querySelector('[aria-label="Remove from Your Library"]');
+            heart.click();
+        } else {
+            const heart2 = search_area.querySelector('[aria-label="Remove from Your Library"]');
             heart2.click();
         }
     }
     if (message.action === 'prev') {
-        let prev = search_area.querySelector('[aria-label="Previous"]');
+        const prev = search_area.querySelector('[aria-label="Previous"]');
         prev.click();
     }
     if (message.action === 'next') {
-        let next = search_area.querySelector('[aria-label="Next"]');
+        const next = search_area.querySelector('[aria-label="Next"]');
         next.click();
     }
+
     let responseData = { status: "Bye Felicia!" };
     if (message.action === 'info') {
         const titleEl = search_area.querySelector('[data-testid="context-item-link"]');
