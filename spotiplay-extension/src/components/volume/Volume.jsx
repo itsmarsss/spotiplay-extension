@@ -23,7 +23,8 @@ function Volume({ muted, volumeInput, volumeChange }) {
           id={"volumeLvl"}
           inputAction={volumeInput}
           changeAction={volumeChange}
-          slider_width={"150px"}
+          slider_width={"170px"}
+          slider_height={"2px"}
         />
       </div>
     </>

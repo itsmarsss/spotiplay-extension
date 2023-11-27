@@ -1,0 +1,47 @@
+#song_icon {
+    position: relative;
+    width: 85px;
+    height: 85px;
+}
+
+.icon {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+}
+
+#song_heart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    border-radius: 50%;
+    background: #00000099;
+}
+
+#favourite {
+    font-size: 20px;
+
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    color: var(--subtext);
+    cursor: pointer;
+}
+
+#favourite.hearted {
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+
+    color: var(--accented-accent);
+}

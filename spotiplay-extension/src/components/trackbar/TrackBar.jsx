@@ -8,9 +8,10 @@ function TrackBar({ position, duration, trackInput, trackChange }) {
         <span class="time">{position}</span>
         <SliderBar
           id={"track"}
-          slider_width={"calc(100% - 100px)"}
           inputAction={trackInput}
           changeAction={trackChange}
+          slider_width={"calc(100% - 100px)"}
+          slider_height={"5px"}
         />
         <span class="time">{duration}</span>
       </div>

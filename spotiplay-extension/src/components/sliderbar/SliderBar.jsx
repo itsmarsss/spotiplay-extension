@@ -1,6 +1,12 @@
 import "./SliderBar.css";
 
-function SliderBar({ id, inputAction, changeAction, slider_width }) {
+function SliderBar({
+  id,
+  inputAction,
+  changeAction,
+  slider_width,
+  slider_height,
+}) {
   return (
     <input
       id={id}
@@ -10,7 +16,7 @@ function SliderBar({ id, inputAction, changeAction, slider_width }) {
       min={0}
       max={100}
       step={0.1}
-      style={{ width: slider_width }}
+      style={{ width: slider_width, height: slider_height }}
     ></input>
   );
 }

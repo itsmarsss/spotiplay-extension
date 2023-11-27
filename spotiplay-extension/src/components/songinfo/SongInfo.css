@@ -1,16 +1,9 @@
-.icon {
-    height: 85px;
-    aspect-ratio: 1/1;
-    border-radius: 5px;
-    transform: scale(1.25);
-}
-
 #song_info {
+    margin-top: -10px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    cursor: pointer;
-    font-size: 12px;
+    gap: 10px;
+    color: var(--text);
 }
 
 a {
@@ -19,9 +12,11 @@ a {
 
 #song_info_title,
 #song_info_artist {
+    max-width: 200px;
+    font-size: 12px;
     position: relative;
+    cursor: pointer;
     display: inline-block;
-    max-width: 90px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -42,31 +37,4 @@ a {
 
 #song_info_artist:hover {
     text-decoration: underline;
-}
-
-#song_heart {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#favourite {
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
-
-    color: var(--subtext);
-    cursor: pointer;
-}
-
-#favourite.hearted {
-    font-variation-settings:
-        'FILL' 1,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
-
-    color: var(--accented-accent);
 }

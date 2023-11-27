@@ -4,6 +4,7 @@
 
   --background: #000;
   --background-el: #fff;
+  --dark: #4d4d4d;
 
   --accent: #1db954;
   --accented-accent: #1ed760;
@@ -27,8 +28,8 @@ body {
   position: fixed;
   z-index: 1;
   border: var(--text) dotted 1px;
-  background: #181818;
-  transform: translate(0, -30px);
+  background: var(--dark);
+  transform: translate(-10px, -30px);
 }
 
 .tooltip:hover .tooltiptext {

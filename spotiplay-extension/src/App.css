@@ -4,19 +4,26 @@
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 .top {
   display: flex;
 }
 
+.split_div {
+  justify-content: center;
+  align-items: center;
+}
+
 .split_div:first-child {
-  width: 270px;
+  width: 30%;
+  display: flex;
 }
 
 .split_div:last-child {
-  width: 215px;
+  width: 70%;
+  display: flex;
 }
 
 #song_div {
