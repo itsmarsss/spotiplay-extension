@@ -8,7 +8,7 @@ body {
   padding: 25px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .top {
@@ -32,60 +32,4 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-.icon {
-  height: 100%;
-  aspect-ratio: 1/1;
-  transform: scale(1.25);
-}
-
-#song_info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-#song_info_title {
-  font-weight: bold;
-  color: var(--text);
-}
-
-#song_info_title:hover {
-  text-decoration: underline;
-}
-
-#song_info_artist {
-  color: var(--subtext);
-}
-
-#song_info_artist:hover {
-  text-decoration: underline;
-}
-
-#song_heart {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#favourite {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
-  color: var(--subtext);
-  cursor: pointer;
-}
-
-#favourite.hearted {
-  font-variation-settings:
-    'FILL' 1,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
-  color: var(--accent);
 }
