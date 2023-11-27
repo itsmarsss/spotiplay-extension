@@ -1,13 +1,17 @@
-// Example: Listening for messages from the background script
 let currVolume = 0.5;
+let covering = false;
 
 chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
+    if (!covering) {
+        const cover = document.createElement("div");
+
+        cover.style = "position: fixed; width: 100%; height: 100%; z-index: 10; background: blue; display: flex;";
+
+        document.body.appendChild(cover);
+        covering = true;
+    }
     const search_area = document.querySelector('[data-testid="now-playing-bar"]');
     if (message.action === 'playpause') {
-        // Perform actions in response to the message
-        console.log('Received example action from background');
-        // You can perform actions on the Spotify page here
-
         try {
             let playpause = search_area.querySelector('[aria-label="Play"]');
             playpause.click();
@@ -66,11 +70,9 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     if (message.action === 'volume') {
         const rect = search_area.querySelectorAll('[data-testid="progress-bar"]')[1].getBoundingClientRect();
 
-        // Calculate the center coordinates
         const centerX = rect.left + rect.width * message.value;
         const centerY = rect.top + rect.height / 2;
 
-        // Create a MouseEvent object for a click event at the center coordinates
         const clickEvent = new MouseEvent('mousedown', {
             view: window,
             bubbles: true,
@@ -86,10 +88,6 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             clientY: centerY
         });
 
-        console.log(centerX)
-        console.log(centerY)
-
-        // Dispatch the click event to the div
         search_area.querySelectorAll('[data-testid="progress-bar"]')[1].dispatchEvent(clickEvent);
         await new Promise((resolve) => setTimeout(resolve, 50));
         search_area.querySelectorAll('[data-testid="progress-bar"]')[1].dispatchEvent(clickEvent2);
@@ -98,11 +96,9 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
     if (message.action === 'track') {
         const rect = search_area.querySelectorAll('[data-testid="progress-bar"]')[0].getBoundingClientRect();
 
-        // Calculate the center coordinates
         const centerX = rect.left + rect.width * message.value;
         const centerY = rect.top + rect.height / 2;
 
-        // Create a MouseEvent object for a click event at the center coordinates
         const clickEvent = new MouseEvent('mousedown', {
             view: window,
             bubbles: true,
@@ -118,10 +114,6 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             clientY: centerY
         });
 
-        console.log(centerX)
-        console.log(centerY)
-
-        // Dispatch the click event to the div
         search_area.querySelectorAll('[data-testid="progress-bar"]')[0].dispatchEvent(clickEvent);
         await new Promise((resolve) => setTimeout(resolve, 50));
         search_area.querySelectorAll('[data-testid="progress-bar"]')[0].dispatchEvent(clickEvent2);
@@ -214,6 +206,5 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             duration: currDuration,
         }
     }
-    console.log(responseData);
     sendResponse(responseData);
 });
