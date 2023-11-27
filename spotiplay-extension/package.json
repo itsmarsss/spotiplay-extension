@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "vite-build": "vite build",
     "build": "echo Use: 'npm run build-win' on Windows machines and 'npm run build-lin' on Linux machines",
-    "build-win": "vite build && copy .\\src\\manifest.json .\\dist\\manifest.json",
-    "build-lin": "vite build && cp src/manifest.json dist/manifest.json",
+    "build-win": "vite build && copy .\\src\\manifest.json .\\dist\\manifest.json && copy .\\src\\contentScript.js .\\dist\\contentScript.js",
+    "build-lin": "vite build && cp src/manifest.json dist/manifest.json && cp src/contentScript.js dist/contentScript.js",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
