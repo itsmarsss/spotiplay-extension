@@ -2,9 +2,6 @@ import Button from "../button/Button";
 import "./SongInfo.css";
 import messageContentScript from "../../Controller";
 
-import reactLogo from "../../assets/react.svg";
-import viteLogo from "../../../public/vite.svg";
-
 function SongInfo({ url, titleURL, authorURL, title, author, hearted }) {
   const heart = () => {
     messageContentScript({ action: "heart" });
