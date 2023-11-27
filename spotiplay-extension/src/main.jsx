@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
 import manifest from "./manifest.json";
+import contentScript from "./contentScript.js";
 
 console.log(manifest.name);
 

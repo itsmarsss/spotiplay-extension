@@ -7,8 +7,6 @@ import SongInfo from "./components/songinfo/SongInfo";
 import Volume from "./components/volume/Volume";
 
 function App({ url, titleURL, authorURL, title, author, hearted }) {
-  const [count, setCount] = useState(0);
-
   return (
     <>
       <div class="top">

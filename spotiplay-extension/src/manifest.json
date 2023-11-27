@@ -6,5 +6,11 @@
   "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["storage"]
+  "content_scripts": [
+    {
+      "matches": ["*://*.spotify.com/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "permissions": ["tabs", "storage"]
 }

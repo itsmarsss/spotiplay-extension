@@ -11,7 +11,7 @@ function Volume() {
   const volume = () => {
     messageContentScript({
       action: "volume",
-      value: document.getElementById("volumeLvl").value,
+      value: document.getElementById("volumeLvl").value / 100,
     });
   };
 
