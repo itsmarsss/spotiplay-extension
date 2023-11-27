@@ -1,7 +1,11 @@
 import "./Button.css";
 
-function Button({ clickAction, icon }) {
-  return <button onClick={clickAction}>{icon}</button>;
+function Button({ classNames, clickAction, icon }) {
+  return (
+    <button class={classNames} onClick={clickAction}>
+      {icon}
+    </button>
+  );
 }
 
 export default Button;

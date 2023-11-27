@@ -2,7 +2,7 @@ import Button from "../button/Button";
 import messageContentScript from "../../Controller";
 import "./Controls.css";
 
-function Controls() {
+function Controls({ shuffled, paused, repeated }) {
   const shuffle = () => {
     messageContentScript({ action: "shuffle" });
   };
@@ -25,7 +25,14 @@ function Controls() {
         <Button
           clickAction={shuffle}
           icon={
-            <span class="material-symbols-outlined side_button">shuffle</span>
+            <span
+              class={
+                "material-symbols-outlined side_button " +
+                (shuffled ? "active" : "")
+              }
+            >
+              shuffle
+            </span>
           }
         />
         <Button
@@ -37,11 +44,11 @@ function Controls() {
           }
         />
         <Button
-          class="main_button"
+          classNames={"main_button"}
           clickAction={playpause}
           icon={
             <span class="material-symbols-outlined main_button_icon">
-              play_arrow
+              {paused ? "play_arrow" : "pause"}
             </span>
           }
         />
@@ -54,7 +61,14 @@ function Controls() {
         <Button
           clickAction={repeat}
           icon={
-            <span class="material-symbols-outlined side_button">repeat</span>
+            <span
+              class={
+                "material-symbols-outlined side_button " +
+                (repeated ? "active" : "")
+              }
+            >
+              repeat
+            </span>
           }
         />
       </div>

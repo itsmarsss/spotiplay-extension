@@ -91,6 +91,25 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
         if (heart) {
             ishearted = true;
         }
+
+        // let isShuffled = false;
+        // const shuffle = search_area.querySelector('[aria-label="Disable shuffle"]');
+        // if (shuffle) {
+        //     isShuffled = true;
+        // }
+
+        let isPaused = false;
+        const play = search_area.querySelector('[aria-label="Play"]');
+        if (play) {
+            isPaused = true;
+        }
+
+        // let isRepeated = false;
+        // const repeat = search_area.querySelector('[aria-label="Disable repeat"]');
+        // if (repeat) {
+        //     isRepeated = true;
+        // }
+
         responseData = {
             url: search_area.querySelector('[data-testid="cover-art-image"]').src,
             titleURL: titleEl.href,
@@ -98,6 +117,9 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             title: titleEl.textContent,
             author: authorEl.textContent,
             hearted: ishearted,
+            shuffled: false,
+            paused: isPaused,
+            repeated: false,
         }
     }
     console.log(responseData);

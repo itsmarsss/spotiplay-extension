@@ -14,12 +14,18 @@ button {
     cursor: pointer;
     display: flex;
     justify-content: center;
-    align-self: center;
+    align-items: center;
 }
 
 .main_button {
     width: 30px;
     height: 30px;
+    border-radius: 50%;
+    background: var(--text);
+}
+
+.main_button:hover {
+    transform: scale(1.1);
 }
 
 .main_button_icon {
@@ -33,14 +39,14 @@ button {
     border-radius: 50%;
 }
 
-.main_button_icon:hover {
-    transform: scale(1.15);
-}
-
 .side_button {
     color: var(--subtext);
 }
 
 .side_button:hover {
     color: var(--background-el);
+}
+
+.active {
+    color: var(--accent);
 }

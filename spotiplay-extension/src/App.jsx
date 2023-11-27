@@ -6,7 +6,19 @@ import TrackBar from "./components/trackbar/TrackBar";
 import SongInfo from "./components/songinfo/SongInfo";
 import Volume from "./components/volume/Volume";
 
-function App({ url, titleURL, authorURL, title, author, hearted }) {
+function App({
+  url,
+  titleURL,
+  authorURL,
+  title,
+  author,
+  hearted,
+  shuffled,
+  paused,
+  repeated,
+  muted,
+  volume,
+}) {
   return (
     <>
       <div class="top">
@@ -22,8 +34,8 @@ function App({ url, titleURL, authorURL, title, author, hearted }) {
         </div>
 
         <div class="split_div" id="control_div">
-          <Controls />
-          <Volume />
+          <Controls shuffled={shuffled} paused={paused} repeated={repeated} />
+          <Volume muted={muted} volume={volume} />
         </div>
       </div>
       <TrackBar />

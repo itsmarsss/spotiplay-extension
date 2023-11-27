@@ -16,6 +16,12 @@ function Main() {
   const [author, setAuthor] = useState("Author");
   const [hearted, setHearted] = useState(false);
 
+  const [shuffled, setShuffled] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [repeated, setRepeated] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(0);
+
   const fetchData = () => {
     // Simulated asynchronous data fetch/update
     messageContentScript({ action: "info" }, (info) => {
@@ -26,6 +32,12 @@ function Main() {
       setTitle(info.title);
       setAuthor(info.author);
       setHearted(info.hearted);
+
+      setShuffled(info.shuffled);
+      setPaused(info.paused);
+      setRepeated(info.repeated);
+      setMuted(info.muted);
+      setVolume(info.volume);
     });
   };
 
@@ -35,7 +47,7 @@ function Main() {
 
     const interval = setInterval(() => {
       fetchData(); // Fetch data at regular intervals
-    }, 500); // Every 5 seconds - change as needed
+    }, 500); // Every 500 milliseconds
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
@@ -49,6 +61,11 @@ function Main() {
         title={title}
         author={author}
         hearted={hearted}
+        shuffled={shuffled}
+        paused={paused}
+        repeated={repeated}
+        muted={muted}
+        volume={volume}
       />
     </React.StrictMode>
   );
