@@ -1,6 +1,7 @@
 .icon {
     height: 100%;
     aspect-ratio: 1/1;
+    border-radius: 5px;
     transform: scale(1.25);
 }
 
@@ -10,6 +11,14 @@
     justify-content: center;
     cursor: pointer;
     font-size: 12px;
+}
+
+#song_info_title,
+#song_info_artist {
+    max-width: 125px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #song_info_title {

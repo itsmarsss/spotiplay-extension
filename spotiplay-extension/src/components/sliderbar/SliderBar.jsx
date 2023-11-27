@@ -1,8 +1,10 @@
 import "./SliderBar.css";
 
-function SliderBar({ slider_width }) {
+function SliderBar({ id, inputAction, slider_width }) {
   return (
     <input
+      id={id}
+      onInput={inputAction}
       type="range"
       min={0}
       max={100}

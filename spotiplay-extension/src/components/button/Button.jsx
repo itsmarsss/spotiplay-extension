@@ -1,7 +1,7 @@
 import "./Button.css";
 
-function Button({ icon }) {
-  return <button>{icon}</button>;
+function Button({ clickAction, icon }) {
+  return <button onClick={clickAction}>{icon}</button>;
 }
 
 export default Button;

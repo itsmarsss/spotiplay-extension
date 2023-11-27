@@ -6,14 +6,21 @@ import TrackBar from "./components/trackbar/TrackBar";
 import SongInfo from "./components/songinfo/SongInfo";
 import Volume from "./components/volume/Volume";
 
-function App() {
+function App({ url, titleURL, authorURL, title, author, hearted }) {
   const [count, setCount] = useState(0);
 
   return (
     <>
       <div class="top">
         <div class="split_div" id="song_div">
-          <SongInfo />
+          <SongInfo
+            url={url}
+            titleURL={titleURL}
+            authorURL={authorURL}
+            title={title}
+            author={author}
+            hearted={hearted}
+          />
         </div>
 
         <div class="split_div" id="control_div">
