@@ -28,7 +28,9 @@ function messageContentScript(message, callback) {
     const tabId = data.spotifyTabId;
     if (tabId) {
       chrome.tabs.sendMessage(tabId, message, function (response) {
-        callback(response);
+        if (callback) {
+          callback(response);
+        }
       });
     }
   });
