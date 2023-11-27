@@ -1,4 +1,4 @@
-var spotiplayer = (function () {
+var spotiplay = (function () {
     let currVolume = 0.5;
     let covering = false;
     let search_area;
@@ -7,7 +7,21 @@ var spotiplayer = (function () {
         if (!covering) {
             const cover = document.createElement("div");
 
-            cover.style = "position: fixed; width: 100%; height: 100%; z-index: 10; background: blue; display: flex;";
+            cover.innerHTML = `This&nbsp;<span style="color: #1ed760;">Spotify</span>&nbsp;webpage is currently being managed by&nbsp;<a style="color: #1ed760;">SpotiPlay</span>.`;
+            cover.style = `
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background: blue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background: #181818;
+            `;
 
             document.body.appendChild(cover);
             covering = true;
@@ -231,4 +245,4 @@ var spotiplayer = (function () {
     }
 });
 
-spotiplayer();
+spotiplay();
