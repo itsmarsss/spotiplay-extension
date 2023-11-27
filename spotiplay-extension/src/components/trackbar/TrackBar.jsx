@@ -8,6 +8,7 @@ function TrackBar({ position, duration, trackInput, trackChange }) {
         <span class="time">{position}</span>
         <SliderBar
           id={"track"}
+          overlay_id={"track_overlay"}
           inputAction={trackInput}
           changeAction={trackChange}
           slider_width={"calc(100% - 100px)"}

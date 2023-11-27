@@ -21,10 +21,11 @@ function Volume({ muted, volumeInput, volumeChange }) {
         />
         <SliderBar
           id={"volumeLvl"}
+          overlay_id={"volume_overlay"}
           inputAction={volumeInput}
           changeAction={volumeChange}
           slider_width={"170px"}
-          slider_height={"2px"}
+          slider_height={"3px"}
         />
       </div>
     </>

@@ -26,7 +26,7 @@ body {
   color: var(--text);
   font-weight: bold;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   border: var(--text) dotted 1px;
   background: var(--dark);
   transform: translate(-10px, -30px);
