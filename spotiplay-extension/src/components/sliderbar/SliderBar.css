@@ -1,4 +1,5 @@
-input[type="range"] {
+/* input[type="range"] {
+    appearance: none;
     accent-color: var(--text);
 }
 
@@ -13,4 +14,57 @@ input[type="range"]::-webkit-slider-runnable-track {
 
 input[type="range"]::-webkit-slider-thumb {
     transition: 100ms;
+} */
+
+input[type="range"] {
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+
+input[type="range"]:hover~div {
+    visibility: visible;
+}
+
+input[type="range"]:hover {
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 15px;
+    background: var(--dark);
+    border-radius: 15px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    height: 1px;
+    width: 1px;
+    border: 2px solid var(--text);
+    box-shadow: -400px 0 0 400px var(--text);
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    box-shadow: -407px 0 0 400px var(--accent);
+}
+
+.overlay {
+    visibility: hidden;
+    position: absolute;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: var(--text);
+    z-index: 2;
+    pointer-events: none;
 }

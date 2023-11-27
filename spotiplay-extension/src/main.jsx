@@ -30,8 +30,47 @@ function Main() {
   const volumeEditing = useRef(false);
   const trackEditing = useRef(false);
 
+  const first = useRef(true);
+
   const fetchData = () => {
-    // Simulated asynchronous data fetch/update
+    if (first.current) {
+      function setupOverlay(rangeId, overlayId) {
+        const range = document.getElementById(rangeId);
+        const overlay = document.getElementById(overlayId);
+
+        ["input", "change"].forEach((value) => {
+          range.addEventListener(value, () => {
+            const rangeHeight = range.style.height.replace("px", "");
+            const thumbWidth = 15;
+            const percent = range.value / 100;
+            const thumbOffset =
+              percent * (range.getBoundingClientRect().width - rangeHeight) -
+              thumbWidth / 2 +
+              range.getBoundingClientRect().left +
+              rangeHeight;
+
+            overlay.style.left = `${thumbOffset}px`;
+          });
+        });
+
+        overlay.addEventListener("mousedown", (event) => {
+          const rangeRect = range.getBoundingClientRect();
+          const clickOffset = event.clientX - rangeRect.left;
+          const value =
+            (clickOffset / range.offsetWidth) * (range.max - range.min) +
+            parseFloat(range.min);
+
+          range.value = value;
+          range.dispatchEvent(new Event("input"));
+        });
+      }
+
+      setupOverlay("track", "track_overlay");
+      setupOverlay("volumeLvl", "volume_overlay");
+    }
+
+    first.current = false;
+
     messageContentScript({ action: "info" }, (info) => {
       setURL(info.url);
       setTitleURL(info.titleURL);
@@ -49,10 +88,12 @@ function Main() {
         document.getElementById("volumeLvl").value = info.muted
           ? 0
           : info.volume * 100;
+        document.getElementById("volumeLvl").dispatchEvent(new Event("change"));
       }
 
       setPosition(info.position);
       setDuration(info.duration);
+      document.getElementById("track").dispatchEvent(new Event("change"));
 
       if (!trackEditing.current) {
         document.getElementById("track").value =
