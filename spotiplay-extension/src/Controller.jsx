@@ -29,12 +29,14 @@ chrome.storage.local.get("spotifyTabId", function (result) {
   }
 });
 
-function messageContentScript(message) {
+function messageContentScript(message, callback) {
   console.log(message);
   chrome.storage.local.get("spotifyTabId", function (data) {
     const tabId = data.spotifyTabId;
     if (tabId) {
-      chrome.tabs.sendMessage(tabId, message);
+      chrome.tabs.sendMessage(tabId, message, function (response) {
+        callback(response);
+      });
     }
   });
 }

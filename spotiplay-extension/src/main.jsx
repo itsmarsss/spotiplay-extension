@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
+import messageContentScript from "./Controller";
 import manifest from "./manifest.json";
 import contentScript from "./contentScript.js";
 
@@ -17,11 +18,15 @@ function Main() {
 
   const fetchData = () => {
     // Simulated asynchronous data fetch/update
-    setTimeout(() => {
-      // Assuming a new value is fetched from the server
-      const newValue = Math.floor(Math.random() * 10);
-      //setTitle(newValue);
-    }, 1000); // Simulating a delay
+    messageContentScript({ action: "info" }, (info) => {
+      console.log(info);
+      setURL(info.url);
+      setTitleURL(info.titleURL);
+      setAuthorURL(info.authorURL);
+      setTitle(info.title);
+      setAuthor(info.author);
+      setHearted(info.hearted);
+    });
   };
 
   // Fetch data initially and update it periodically

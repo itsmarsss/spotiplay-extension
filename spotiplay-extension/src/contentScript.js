@@ -82,4 +82,24 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
         let next = search_area.querySelector('[aria-label="Next"]');
         next.click();
     }
+    let responseData = { status: "Bye Felicia!" };
+    if (message.action === 'info') {
+        const titleEl = search_area.querySelector('[data-testid="context-item-link"]');
+        const authorEl = search_area.querySelector('[data-testid="context-item-info-artist"]');
+        let ishearted = false;
+        let heart = search_area.querySelector('[aria-label="Remove from Your Library"]');
+        if (heart) {
+            ishearted = true;
+        }
+        responseData = {
+            url: search_area.querySelector('[data-testid="cover-art-image"]').src,
+            titleURL: titleEl.href,
+            authorURL: authorEl.href,
+            title: titleEl.textContent,
+            author: authorEl.textContent,
+            hearted: ishearted,
+        }
+    }
+    console.log(responseData);
+    sendResponse(responseData);
 });
