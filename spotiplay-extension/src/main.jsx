@@ -28,11 +28,11 @@ function Main() {
   const [duration, setDuration] = useState("0:00");
 
   const volumeEditing = useRef(false);
+  const trackEditing = useRef(false);
 
   const fetchData = () => {
     // Simulated asynchronous data fetch/update
     messageContentScript({ action: "info" }, (info) => {
-      console.log(info);
       setURL(info.url);
       setTitleURL(info.titleURL);
       setAuthorURL(info.authorURL);
@@ -53,6 +53,13 @@ function Main() {
 
       setPosition(info.position);
       setDuration(info.duration);
+
+      if (!trackEditing.current) {
+        document.getElementById("track").value =
+          (timeStringToSeconds(info.position) /
+            timeStringToSeconds(info.duration)) *
+          100;
+      }
     });
   };
 
@@ -78,6 +85,17 @@ function Main() {
     });
   };
 
+  const trackInput = () => {
+    trackEditing.current = true;
+  };
+  const trackChange = () => {
+    trackEditing.current = false;
+    messageContentScript({
+      action: "track",
+      value: document.getElementById("track").value / 100,
+    });
+  };
+
   return (
     <React.StrictMode>
       <App
@@ -93,11 +111,18 @@ function Main() {
         muted={muted}
         volumeInput={volumeInput}
         volumeChange={volumeChange}
+        trackInput={trackInput}
+        trackChange={trackChange}
         position={position}
         duration={duration}
       />
     </React.StrictMode>
   );
+}
+
+function timeStringToSeconds(timeString) {
+  const [minutes, seconds] = timeString.split(":").map(Number);
+  return minutes * 60 + seconds;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<Main />);

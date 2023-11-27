@@ -30,7 +30,6 @@ chrome.storage.local.get("spotifyTabId", function (result) {
 });
 
 function messageContentScript(message, callback) {
-  console.log(message);
   chrome.storage.local.get("spotifyTabId", function (data) {
     const tabId = data.spotifyTabId;
     if (tabId) {

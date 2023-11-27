@@ -95,6 +95,38 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
         search_area.querySelectorAll('[data-testid="progress-bar"]')[1].dispatchEvent(clickEvent2);
         currVolume = message.value;
     }
+    if (message.action === 'track') {
+        const rect = search_area.querySelectorAll('[data-testid="progress-bar"]')[0].getBoundingClientRect();
+
+        // Calculate the center coordinates
+        const centerX = rect.left + rect.width * message.value;
+        const centerY = rect.top + rect.height / 2;
+
+        // Create a MouseEvent object for a click event at the center coordinates
+        const clickEvent = new MouseEvent('mousedown', {
+            view: window,
+            bubbles: true,
+            cancelable: false,
+            clientX: centerX,
+            clientY: centerY
+        });
+        const clickEvent2 = new MouseEvent('mouseup', {
+            view: window,
+            bubbles: true,
+            cancelable: false,
+            clientX: centerX,
+            clientY: centerY
+        });
+
+        console.log(centerX)
+        console.log(centerY)
+
+        // Dispatch the click event to the div
+        search_area.querySelectorAll('[data-testid="progress-bar"]')[0].dispatchEvent(clickEvent);
+        await new Promise((resolve) => setTimeout(resolve, 50));
+        search_area.querySelectorAll('[data-testid="progress-bar"]')[0].dispatchEvent(clickEvent2);
+        currVolume = message.value;
+    }
     if (message.action === 'heart') {
         try {
             let heart = search_area.querySelector('[aria-label="Save to Your Library"]');

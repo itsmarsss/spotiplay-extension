@@ -5,6 +5,7 @@ body {
 #root {
   width: calc(100% - 50px);
   margin: 25px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
