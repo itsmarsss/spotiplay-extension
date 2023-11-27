@@ -17,7 +17,8 @@ function App({
   paused,
   repeated,
   muted,
-  volume,
+  volumeInput,
+  volumeChange,
 }) {
   return (
     <>
@@ -35,7 +36,11 @@ function App({
 
         <div class="split_div" id="control_div">
           <Controls shuffled={shuffled} paused={paused} repeated={repeated} />
-          <Volume muted={muted} volume={volume} />
+          <Volume
+            muted={muted}
+            volumeInput={volumeInput}
+            volumeChange={volumeChange}
+          />
         </div>
       </div>
       <TrackBar />

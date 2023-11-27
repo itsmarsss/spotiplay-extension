@@ -1,10 +1,11 @@
 import "./SliderBar.css";
 
-function SliderBar({ id, inputAction, slider_width }) {
+function SliderBar({ id, inputAction, changeAction, slider_width }) {
   return (
     <input
       id={id}
       onInput={inputAction}
+      onMouseUp={changeAction}
       type="range"
       min={0}
       max={100}

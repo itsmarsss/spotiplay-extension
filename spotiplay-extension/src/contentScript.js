@@ -1,5 +1,5 @@
 // Example: Listening for messages from the background script
-
+let currVolume = 0.5;
 
 chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
     const search_area = document.querySelector('[data-testid="now-playing-bar"]');
@@ -61,6 +61,7 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
         search_area.querySelectorAll('[data-testid="progress-bar"]')[1].dispatchEvent(clickEvent);
         await new Promise((resolve) => setTimeout(resolve, 50));
         search_area.querySelectorAll('[data-testid="progress-bar"]')[1].dispatchEvent(clickEvent2);
+        currVolume = message.value;
     }
     if (message.action === 'heart') {
         try {
@@ -110,6 +111,12 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
         //     isRepeated = true;
         // }
 
+        let isMuted = false;
+        const mute = search_area.querySelector('[aria-label="Unmute"]');
+        if (mute) {
+            isMuted = true;
+        }
+
         responseData = {
             url: search_area.querySelector('[data-testid="cover-art-image"]').src,
             titleURL: titleEl.href,
@@ -120,6 +127,8 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             shuffled: false,
             paused: isPaused,
             repeated: false,
+            muted: isMuted,
+            volume: currVolume,
         }
     }
     console.log(responseData);

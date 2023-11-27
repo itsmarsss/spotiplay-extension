@@ -3,16 +3,9 @@ import SliderBar from "../sliderbar/SliderBar";
 import messageContentScript from "../../Controller";
 import "./Volume.css";
 
-function Volume() {
+function Volume({ muted, volumeInput, volumeChange }) {
   const mute = () => {
     messageContentScript({ action: "mute" });
-  };
-
-  const volume = () => {
-    messageContentScript({
-      action: "volume",
-      value: document.getElementById("volumeLvl").value / 100,
-    });
   };
 
   return (
@@ -21,12 +14,15 @@ function Volume() {
         <Button
           clickAction={mute}
           icon={
-            <span class="material-symbols-outlined side_button">volume_up</span>
+            <span class="material-symbols-outlined side_button">
+              {muted ? "volume_off" : "volume_up"}
+            </span>
           }
         />
         <SliderBar
           id={"volumeLvl"}
-          inputAction={volume}
+          inputAction={volumeInput}
+          changeAction={volumeChange}
           slider_width={"150px"}
         />
       </div>

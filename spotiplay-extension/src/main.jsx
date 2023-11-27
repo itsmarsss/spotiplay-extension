@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -19,8 +19,10 @@ function Main() {
   const [shuffled, setShuffled] = useState(false);
   const [paused, setPaused] = useState(false);
   const [repeated, setRepeated] = useState(false);
+
   const [muted, setMuted] = useState(false);
-  const [volume, setVolume] = useState(0);
+
+  const volumeEditing = useRef(false);
 
   const fetchData = () => {
     // Simulated asynchronous data fetch/update
@@ -36,8 +38,11 @@ function Main() {
       setShuffled(info.shuffled);
       setPaused(info.paused);
       setRepeated(info.repeated);
+
       setMuted(info.muted);
-      setVolume(info.volume);
+      if (!volumeEditing.current) {
+        document.getElementById("volumeLvl").value = muted ? 0 : volume * 100;
+      }
     });
   };
 
@@ -47,10 +52,21 @@ function Main() {
 
     const interval = setInterval(() => {
       fetchData(); // Fetch data at regular intervals
-    }, 500); // Every 500 milliseconds
+    }, 1000); // Every 500 milliseconds
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);
+
+  const volumeInput = () => {
+    volumeEditing.current = true;
+  };
+  const volumeChange = () => {
+    volumeEditing.current = false;
+    messageContentScript({
+      action: "volume",
+      value: document.getElementById("volumeLvl").value / 100,
+    });
+  };
 
   return (
     <React.StrictMode>
@@ -65,7 +81,8 @@ function Main() {
         paused={paused}
         repeated={repeated}
         muted={muted}
-        volume={volume}
+        volumeInput={volumeInput}
+        volumeChange={volumeChange}
       />
     </React.StrictMode>
   );
