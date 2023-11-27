@@ -19,6 +19,38 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             playpause2.click();
         }
     }
+    if (message.action === 'shuffle') {
+        try {
+            const shuffle = search_area.querySelector('[aria-label="Disable shuffle"]');
+            shuffle.click();
+            return;
+        } catch (err) {
+
+        } finally {
+            const shuffle2 = search_area.querySelector('[aria-label="Enable shuffle"]');
+            shuffle2.click();
+        }
+    }
+    if (message.action === 'repeat') {
+        try {
+            const repeat = search_area.querySelector('[aria-label="Enable repeat"]');
+            repeat.click();
+            return;
+        } catch (err) {
+
+        } finally {
+            try {
+                const repeat2 = search_area.querySelector('[aria-label="Enable repeat one"]');
+                repeat2.click();
+                return;
+            } catch (err) {
+
+            } finally {
+                const repeat3 = search_area.querySelector('[aria-label="Disable repeat"]');
+                repeat3.click();
+            }
+        }
+    }
     if (message.action === 'mute') {
         try {
             let mute = search_area.querySelector('[aria-label="Mute"]');
@@ -93,11 +125,11 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             ishearted = true;
         }
 
-        // let isShuffled = false;
-        // const shuffle = search_area.querySelector('[aria-label="Disable shuffle"]');
-        // if (shuffle) {
-        //     isShuffled = true;
-        // }
+        let isShuffled = false;
+        const shuffle = search_area.querySelector('[aria-label="Disable shuffle"]');
+        if (shuffle) {
+            isShuffled = true;
+        }
 
         let isPaused = false;
         const play = search_area.querySelector('[aria-label="Play"]');
@@ -105,11 +137,16 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             isPaused = true;
         }
 
-        // let isRepeated = false;
-        // const repeat = search_area.querySelector('[aria-label="Disable repeat"]');
-        // if (repeat) {
-        //     isRepeated = true;
-        // }
+        let repeatMode = 'one';
+        const repeat = search_area.querySelector('[aria-label="Enable repeat"]');
+        if (repeat) {
+            repeatMode = 'off';
+        } else {
+            const repeat2 = search_area.querySelector('[aria-label="Enable repeat one"]');
+            if (repeat2) {
+                repeatMode = 'on';
+            }
+        }
 
         let isMuted = false;
         const mute = search_area.querySelector('[aria-label="Unmute"]');
@@ -124,9 +161,9 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             title: titleEl.textContent,
             author: authorEl.textContent,
             hearted: ishearted,
-            shuffled: false,
+            shuffled: isShuffled,
             paused: isPaused,
-            repeated: false,
+            repeated: repeatMode,
             muted: isMuted,
             volume: currVolume,
         }

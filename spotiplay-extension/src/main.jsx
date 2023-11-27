@@ -18,7 +18,7 @@ function Main() {
 
   const [shuffled, setShuffled] = useState(false);
   const [paused, setPaused] = useState(false);
-  const [repeated, setRepeated] = useState(false);
+  const [repeated, setRepeated] = useState("off");
 
   const [muted, setMuted] = useState(false);
 
@@ -41,7 +41,9 @@ function Main() {
 
       setMuted(info.muted);
       if (!volumeEditing.current) {
-        document.getElementById("volumeLvl").value = muted ? 0 : volume * 100;
+        document.getElementById("volumeLvl").value = info.muted
+          ? 0
+          : info.volume * 100;
       }
     });
   };
@@ -52,7 +54,7 @@ function Main() {
 
     const interval = setInterval(() => {
       fetchData(); // Fetch data at regular intervals
-    }, 1000); // Every 500 milliseconds
+    }, 250); // Every 500 milliseconds
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, []);

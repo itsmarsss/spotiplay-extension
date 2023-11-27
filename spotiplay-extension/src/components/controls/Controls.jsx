@@ -64,10 +64,14 @@ function Controls({ shuffled, paused, repeated }) {
             <span
               class={
                 "material-symbols-outlined side_button " +
-                (repeated ? "active" : "")
+                (repeated != "off" ? "active" : "")
               }
             >
-              repeat
+              {repeated != "off"
+                ? repeated == "one"
+                  ? "repeat_one"
+                  : "repeat"
+                : "repeat"}
             </span>
           }
         />
