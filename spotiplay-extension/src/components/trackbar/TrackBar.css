@@ -1,0 +1,8 @@
+#track_info {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.time {
+    color: var(--subtext);
+}

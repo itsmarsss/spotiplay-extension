@@ -3,9 +3,8 @@ body {
 }
 
 #root {
-  width: 100%;
-  margin: 0;
-  padding: 25px;
+  width: calc(100% - 50px);
+  margin: 25px;
   display: flex;
   flex-direction: column;
   gap: 20px;

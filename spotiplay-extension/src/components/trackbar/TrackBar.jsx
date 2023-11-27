@@ -1,12 +1,14 @@
 import SliderBar from "../sliderbar/SliderBar";
 import "./TrackBar.css";
 
-function TrackBar() {
+function TrackBar({ position, duration }) {
   return (
     <>
-      <span>0:00</span>
-      <SliderBar slider_width={"calc(100% - 50px)"} />
-      <span>0:00</span>
+      <div id="track_info">
+        <span class="time">{position}</span>
+        <SliderBar slider_width={"calc(100% - 100px)"} />
+        <span class="time">{duration}</span>
+      </div>
     </>
   );
 }

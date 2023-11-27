@@ -19,6 +19,8 @@ function App({
   muted,
   volumeInput,
   volumeChange,
+  position,
+  duration,
 }) {
   return (
     <>
@@ -43,7 +45,7 @@ function App({
           />
         </div>
       </div>
-      <TrackBar />
+      <TrackBar position={position} duration={duration} />
     </>
   );
 }

@@ -154,6 +154,18 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             isMuted = true;
         }
 
+        let currPosition = "0:00";
+        const position = search_area.querySelector('[data-testid="playback-position"]');
+        if (position) {
+            currPosition = position.textContent;
+        }
+
+        let currDuration = "0:00";
+        const duration = search_area.querySelector('[data-testid="playback-duration"]');
+        if (duration) {
+            currDuration = duration.textContent;
+        }
+
         responseData = {
             url: search_area.querySelector('[data-testid="cover-art-image"]').src,
             titleURL: titleEl.href,
@@ -166,6 +178,8 @@ chrome.runtime.onMessage.addListener(async function (message, sender, sendRespon
             repeated: repeatMode,
             muted: isMuted,
             volume: currVolume,
+            position: currPosition,
+            duration: currDuration,
         }
     }
     console.log(responseData);

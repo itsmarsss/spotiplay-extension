@@ -9,11 +9,13 @@ import contentScript from "./contentScript.js";
 console.log(manifest.name);
 
 function Main() {
-  const [url, setURL] = useState("");
+  const [url, setURL] = useState(
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png"
+  );
   const [titleURL, setTitleURL] = useState("");
   const [authorURL, setAuthorURL] = useState("");
-  const [title, setTitle] = useState("Title");
-  const [author, setAuthor] = useState("Author");
+  const [title, setTitle] = useState("Pending Title...");
+  const [author, setAuthor] = useState("Pending Author...");
   const [hearted, setHearted] = useState(false);
 
   const [shuffled, setShuffled] = useState(false);
@@ -21,6 +23,9 @@ function Main() {
   const [repeated, setRepeated] = useState("off");
 
   const [muted, setMuted] = useState(false);
+
+  const [position, setPosition] = useState("0:00");
+  const [duration, setDuration] = useState("0:00");
 
   const volumeEditing = useRef(false);
 
@@ -45,6 +50,9 @@ function Main() {
           ? 0
           : info.volume * 100;
       }
+
+      setPosition(info.position);
+      setDuration(info.duration);
     });
   };
 
@@ -85,6 +93,8 @@ function Main() {
         muted={muted}
         volumeInput={volumeInput}
         volumeChange={volumeChange}
+        position={position}
+        duration={duration}
       />
     </React.StrictMode>
   );
