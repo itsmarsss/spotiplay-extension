@@ -12,3 +12,29 @@
 html {
   background: var(--background);
 }
+
+body {
+  width: 512px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  padding: 5px 10px;
+  border-radius: 6px;
+  text-align: center;
+  color: var(--text);
+  font-weight: bold;
+  position: fixed;
+  z-index: 1;
+  border: var(--text) dotted 1px;
+  background: #181818;
+  transform: translate(0, -30px);
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltiptext:hover {
+  visibility: hidden;
+}

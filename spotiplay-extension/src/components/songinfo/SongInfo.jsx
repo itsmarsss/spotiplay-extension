@@ -15,10 +15,16 @@ function SongInfo({ url, titleURL, authorURL, title, author, hearted }) {
       <img class="icon" src={url}></img>
       <div id="song_info">
         <a href={titleURL} target="_blank">
-          <span id="song_info_title">{title}</span>
+          <span id="song_info_title" class="tooltip">
+            <span class="tooltiptext">{title}</span>
+            {title}
+          </span>
         </a>
         <a href={authorURL} target="_blank">
-          <span id="song_info_artist">{author}</span>
+          <span id="song_info_artist" class="tooltip">
+            <span class="tooltiptext">{author}</span>
+            {author}
+          </span>
         </a>
       </div>
       <span id="song_heart">

@@ -19,6 +19,7 @@ a {
 
 #song_info_title,
 #song_info_artist {
+    position: relative;
     display: inline-block;
     max-width: 90px;
     white-space: nowrap;
