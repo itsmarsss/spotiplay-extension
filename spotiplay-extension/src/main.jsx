@@ -40,25 +40,28 @@ function Main() {
 
         ["input", "change"].forEach((value) => {
           range.addEventListener(value, () => {
-            const rangeHeight = range.style.height.replace("px", "");
-            const thumbWidth = 15;
+            const borderWidth = range.style.height.replace("px", "");
+            const rangeWidth = range.getBoundingClientRect().width;
+            const rangeLeft = range.getBoundingClientRect().left;
             const percent = range.value / 100;
-            const thumbOffset =
-              percent * (range.getBoundingClientRect().width - rangeHeight) -
-              thumbWidth / 2 +
-              range.getBoundingClientRect().left +
-              rangeHeight;
 
-            overlay.style.left = `${thumbOffset}px`;
+            const overlayOffset =
+              percent * (rangeWidth - 2 * borderWidth) + rangeLeft;
+
+            overlay.style.left = `${overlayOffset}px`;
+            console.log(borderWidth);
           });
         });
 
         overlay.addEventListener("mousedown", (event) => {
-          const rangeRect = range.getBoundingClientRect();
-          const clickOffset = event.clientX - rangeRect.left;
+          const borderWidth = range.style.height.replace("px", "");
+          const clickOffset =
+            event.clientX -
+            range.getBoundingClientRect().left -
+            2 * borderWidth;
           const value =
-            (clickOffset / range.offsetWidth) * (range.max - range.min) +
-            parseFloat(range.min);
+            (clickOffset / range.getBoundingClientRect().width) * 100 -
+            borderWidth / 2;
 
           range.value = value;
           range.dispatchEvent(new Event("input"));

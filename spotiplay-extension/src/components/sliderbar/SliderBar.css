@@ -25,18 +25,8 @@ input[type="range"] {
     border-radius: 15px;
 }
 
-
 input[type="range"]:hover~div {
     visibility: visible;
-}
-
-input[type="range"]:hover {
-    appearance: none;
-    width: 100%;
-    cursor: pointer;
-    outline: none;
-    overflow: hidden;
-    border-radius: 15px;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
@@ -49,6 +39,7 @@ input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     height: 1px;
     width: 1px;
+    background: var(--text);
     border: 2px solid var(--text);
     box-shadow: -400px 0 0 400px var(--text);
 }
@@ -56,7 +47,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]:hover::-webkit-slider-thumb {
     border-radius: 50%;
     border: 2px solid var(--accent);
-    box-shadow: -407px 0 0 400px var(--accent);
+    box-shadow: -400px 0 0 400px var(--accent);
 }
 
 .overlay {
