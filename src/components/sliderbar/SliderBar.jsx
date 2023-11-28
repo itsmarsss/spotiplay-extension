@@ -16,7 +16,7 @@ function SliderBar({
       <input
         id={id}
         onInput={inputAction}
-        onMouseUp={changeAction}
+        onPointerUp={changeAction}
         type="range"
         min={0}
         max={100}

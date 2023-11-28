@@ -26,13 +26,21 @@ chrome.storage.local.get("spotifyTabId", function (result) {
 function messageContentScript(message, callback) {
   chrome.storage.local.get("spotifyTabId", function (data) {
     const tabId = data.spotifyTabId;
-    if (tabId) {
-      chrome.tabs.sendMessage(tabId, message, function (response) {
-        if (callback) {
-          callback(response);
-        }
-      });
+    if (!tabId) {
+      if (callback) callback(null);
+      return;
     }
+
+    chrome.tabs.sendMessage(tabId, message, function (response) {
+      if (chrome.runtime.lastError) {
+        if (callback) callback(null);
+        return;
+      }
+
+      if (callback) {
+        callback(response ?? null);
+      }
+    });
   });
 }
 

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 
 import Controls from "./components/controls/Controls";
@@ -13,8 +12,8 @@ function App({
   authorURL,
   title,
   author,
-  hearted,
   shuffled,
+  shuffleMode,
   paused,
   repeated,
   muted,
@@ -29,11 +28,16 @@ function App({
     <>
       <div class="top">
         <div class="split_div" id="song_div">
-          <SongIcon url={url} hearted={hearted} />
+          <SongIcon url={url} />
         </div>
 
         <div class="split_div" id="control_div">
-          <Controls shuffled={shuffled} paused={paused} repeated={repeated} />
+          <Controls
+            shuffled={shuffled}
+            shuffleMode={shuffleMode}
+            paused={paused}
+            repeated={repeated}
+          />
           <Volume
             muted={muted}
             volumeInput={volumeInput}

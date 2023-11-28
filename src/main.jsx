@@ -4,7 +4,6 @@ import App from "./App.jsx";
 import "./index.css";
 import messageContentScript from "./Controller";
 import manifest from "./manifest.json";
-import contentScript from "./contentScript.js";
 
 console.log(manifest.name);
 
@@ -16,9 +15,9 @@ function Main() {
   const [authorURL, setAuthorURL] = useState("");
   const [title, setTitle] = useState("Pending Title...");
   const [author, setAuthor] = useState("Pending Author...");
-  const [hearted, setHearted] = useState(false);
 
   const [shuffled, setShuffled] = useState(false);
+  const [shuffleMode, setShuffleMode] = useState("off");
   const [paused, setPaused] = useState(false);
   const [repeated, setRepeated] = useState("off");
 
@@ -29,8 +28,30 @@ function Main() {
 
   const volumeEditing = useRef(false);
   const trackEditing = useRef(false);
+  const volumeDebounceRef = useRef(null);
+  const trackDebounceRef = useRef(null);
 
   const first = useRef(true);
+  const VOLUME_DEBOUNCE_MS = 90;
+  const TRACK_DEBOUNCE_MS = 120;
+
+  const sendVolumeCommand = () => {
+    const volumeNode = document.getElementById("volumeLvl");
+    if (!volumeNode) return;
+    messageContentScript({
+      action: "volume",
+      value: volumeNode.value / 100,
+    });
+  };
+
+  const sendTrackCommand = () => {
+    const trackNode = document.getElementById("track");
+    if (!trackNode) return;
+    messageContentScript({
+      action: "track",
+      value: trackNode.value / 100,
+    });
+  };
 
   const fetchData = () => {
     if (first.current) {
@@ -75,34 +96,42 @@ function Main() {
     first.current = false;
 
     messageContentScript({ action: "info" }, (info) => {
+      if (!info || typeof info !== "object") {
+        return;
+      }
+
       setURL(info.url);
       setTitleURL(info.titleURL);
       setAuthorURL(info.authorURL);
       setTitle(info.title);
       setAuthor(info.author);
-      setHearted(info.hearted);
 
       setShuffled(info.shuffled);
+      setShuffleMode(info.shuffleMode || "off");
       setPaused(info.paused);
       setRepeated(info.repeated);
 
       setMuted(info.muted);
       if (!volumeEditing.current) {
-        document.getElementById("volumeLvl").value = info.muted
-          ? 0
-          : info.volume * 100;
-        document.getElementById("volumeLvl").dispatchEvent(new Event("change"));
+        const volumeNode = document.getElementById("volumeLvl");
+        if (volumeNode) {
+          volumeNode.value = info.muted ? 0 : info.volume * 100;
+          volumeNode.dispatchEvent(new Event("change"));
+        }
       }
 
       setPosition(info.position);
       setDuration(info.duration);
-      document.getElementById("track").dispatchEvent(new Event("change"));
+      const trackNode = document.getElementById("track");
+      if (trackNode) {
+        trackNode.dispatchEvent(new Event("change"));
+      }
 
-      if (!trackEditing.current) {
-        document.getElementById("track").value =
-          (timeStringToSeconds(info.position) /
-            timeStringToSeconds(info.duration)) *
-          100;
+      if (!trackEditing.current && trackNode) {
+        const durationSeconds = timeStringToSeconds(info.duration);
+        const positionSeconds = timeStringToSeconds(info.position);
+        trackNode.value =
+          durationSeconds > 0 ? (positionSeconds / durationSeconds) * 100 : 0;
       }
     });
   };
@@ -115,29 +144,33 @@ function Main() {
       fetchData(); // Fetch data at regular intervals
     }, 250); // Every 500 milliseconds
 
-    return () => clearInterval(interval); // Clear interval on component unmount
+    return () => {
+      clearInterval(interval);
+      clearTimeout(volumeDebounceRef.current);
+      clearTimeout(trackDebounceRef.current);
+    };
   }, []);
 
   const volumeInput = () => {
     volumeEditing.current = true;
+    clearTimeout(volumeDebounceRef.current);
+    volumeDebounceRef.current = setTimeout(sendVolumeCommand, VOLUME_DEBOUNCE_MS);
   };
   const volumeChange = () => {
     volumeEditing.current = false;
-    messageContentScript({
-      action: "volume",
-      value: document.getElementById("volumeLvl").value / 100,
-    });
+    clearTimeout(volumeDebounceRef.current);
+    sendVolumeCommand();
   };
 
   const trackInput = () => {
     trackEditing.current = true;
+    clearTimeout(trackDebounceRef.current);
+    trackDebounceRef.current = setTimeout(sendTrackCommand, TRACK_DEBOUNCE_MS);
   };
   const trackChange = () => {
     trackEditing.current = false;
-    messageContentScript({
-      action: "track",
-      value: document.getElementById("track").value / 100,
-    });
+    clearTimeout(trackDebounceRef.current);
+    sendTrackCommand();
   };
 
   return (
@@ -148,8 +181,8 @@ function Main() {
         authorURL={authorURL}
         title={title}
         author={author}
-        hearted={hearted}
         shuffled={shuffled}
+        shuffleMode={shuffleMode}
         paused={paused}
         repeated={repeated}
         muted={muted}

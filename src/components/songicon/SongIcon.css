@@ -1,0 +1,11 @@
+#song_icon {
+    position: relative;
+    width: 85px;
+    height: 85px;
+}
+
+.icon {
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+}
