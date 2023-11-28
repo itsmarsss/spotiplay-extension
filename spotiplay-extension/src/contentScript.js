@@ -3,15 +3,21 @@ var spotiplay = (function () {
     let covering = false;
     let search_area;
 
+    let timer;
+
     chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
         if (!covering) {
             const cover = document.createElement("div");
 
-            cover.innerHTML = `This&nbsp;<span style="color: #1ed760;">Spotify</span>&nbsp;webpage is currently being managed by&nbsp;<a style="color: #1ed760;">SpotiPlay</span>.`;
+            cover.innerHTML = `
+            <div style="text-align: center; word-spacing: 2px;">
+                This&nbsp;<span style="color: #1ed760;">Spotify</span>&nbsp;webpage is currently being managed by&nbsp;<a style="color: #1ed760;">SpotiPlay</span>.
+            </div>`;
             cover.style = `
             position: fixed;
             width: 100%;
             height: 100%;
+            bottom: 0;
             z-index: 10;
             background: blue;
             display: flex;
@@ -19,11 +25,26 @@ var spotiplay = (function () {
             align-items: center;
             font-size: 20px;
             font-weight: bold;
+            font-family: var(--font-family,CircularSpTitle,CircularSpTitle-Tall,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif));
             color: #fff;
             background: #181818;
+            transition: 200ms;
             `;
 
-            document.body.appendChild(cover);
+            document.body.insertAdjacentElement('afterend', cover);
+
+            document.addEventListener("mousemove", () => {
+                cover.style.height = "50px";
+                document.body.style.height = "calc(100% - 50px)";
+
+                clearTimeout(timer);
+
+                timer = setTimeout(() => {
+                    cover.style.height = "100%";
+                    document.body.style.height = "100%";
+                }, 5000);
+            });
+
             covering = true;
         }
         search_area = document.querySelector('[data-testid="now-playing-bar"]');
